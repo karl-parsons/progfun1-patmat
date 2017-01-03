@@ -51,4 +51,23 @@ class HuffmanSuite extends FunSuite {
     }
   }
 
+  test("times(string2Chars(\"helloworld\"))") {
+    assert(times(string2Chars("helloworld")) === List(
+      ('h', 1),
+      ('e', 1),
+      ('l', 3),
+      ('o', 2),
+      ('w', 1),
+      ('r', 1),
+      ('d', 1)
+    )
+    )
+  }
+
+  test("singleton") {
+    new TestTrees {
+      assert(singleton(List(t1)) && !singleton(List(t1, t2)))
+    }
+  }
+
 }
