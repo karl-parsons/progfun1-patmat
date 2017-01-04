@@ -70,4 +70,10 @@ class HuffmanSuite extends FunSuite {
     }
   }
 
+  test("until") {
+    new TestTrees {
+      assert(until(singleton, combine)(List(t1, Leaf('d',4))) === t2)
+    }
+  }
+
 }
