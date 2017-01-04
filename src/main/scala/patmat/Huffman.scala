@@ -169,11 +169,11 @@ object Huffman extends App{
             bits.head match {
               case 0 => decode(left, bits.tail, acc)
               case 1 => decode(right, bits.tail, acc)
-              case _ => throw new Error("bad input")
+              case _ => throw new Error("decode: not 0 or 1")
             }
           }
         }
-        case _ => Nil
+        case _ => throw new Error("bad input")
       }
     }
 
@@ -213,8 +213,8 @@ object Huffman extends App{
           if (chars(left).contains(char)) encode(left, char, 0 :: acc)
           else encode(right, char, 1 :: acc)
         }
-        case Leaf(_, _) => acc
-        case _ => Nil
+        case Leaf(_, _) => acc.reverse
+        case _ => throw new Error("encode: invalid input")
       }
     }
 
@@ -250,7 +250,7 @@ object Huffman extends App{
       tree match {
         case Fork(left, right, _, _) => mergeCodeTables(convert(left, 0 :: bits), convert(right, 1 :: bits))
         case Leaf(char, _) => List((char, bits.reverse))
-        case _ => Nil
+        case _ => throw new Error("convert: invalid input")
       }
     }
 
@@ -273,9 +273,6 @@ object Huffman extends App{
   def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = {
     text.flatMap(codeBits(convert(tree)))
   }
-
-  println(decode(frenchCode, List(0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1) ))
-  println(decode(frenchCode, List(1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1)))
 
 }
 
