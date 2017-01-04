@@ -173,6 +173,7 @@ object Huffman {
             }
           }
         }
+        case _ => Nil
       }
     }
 
@@ -213,6 +214,7 @@ object Huffman {
           else encode(right, char, 1 :: acc)
         }
         case Leaf(_, _) => acc
+        case _ => Nil
       }
     }
 
@@ -248,6 +250,7 @@ object Huffman {
       tree match {
         case Fork(left, right, _, _) => mergeCodeTables(convert(left, 0 :: bits), convert(right, 1 :: bits))
         case Leaf(char, _) => List((char, bits.reverse))
+        case _ => Nil
       }
     }
 
