@@ -51,7 +51,13 @@ class HuffmanSuite extends FunSuite {
     }
   }
 
-  test("times(string2Chars(\"helloworld\"))") {
+  test("decode and quickEncode a very short text should be identity") {
+    new TestTrees {
+      assert(decode(t1, quickEncode(t1)("ab".toList)) === "ab".toList)
+    }
+  }
+
+  test("times") {
     assert(times(string2Chars("helloworld")) === List(
       ('h', 1),
       ('e', 1),
